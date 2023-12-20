@@ -6,7 +6,7 @@ public class Input {
     private Scanner scanner;
 
     public Input() {
-        this.scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
     }
 
     public String getString() {
@@ -19,32 +19,63 @@ public class Input {
     }
 
 
-    public int getInt(int min, int max) {
-        int num;
-        do {
-            System.out.println("Please enter a valid integer between " + min + " and " + max + ":");
-            while (!scanner.hasNextInt()) {
-                System.out.println("That's not a number. Please enter a number: ");
-                scanner.next(); // Consume invalid input
-            }
-            num = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-        } while (num < min || num > max);
-        return num;
-    }
+//    public int getInt(int min, int max) {
+//        int num;
+//        do {
+//            System.out.println("Please enter a valid integer between " + min + " and " + max + ":");
+//            while (!scanner.hasNextInt()) {
+//                System.out.println("That's not a number. Please enter a number: ");
+//                scanner.next(); // Consume invalid input
+//            }
+//            num = scanner.nextInt();
+//            scanner.nextLine(); // Consume the newline character
+//        } while (num < min || num > max);
+//        return num;
+//    }
+
+//    public int getInt() {
+//        int num;
+//        do {
+//            System.out.println("Please enter a number: ");
+//            while (!scanner.hasNextInt()) {
+//                System.out.println("That's not a number. Please enter a number: ");
+//                scanner.next(); // Consume invalid input
+//            }
+//            num = scanner.nextInt();
+//            scanner.nextLine(); // Consume the newline character
+//        } while (num < 0);
+//        return num;
+//    }
 
     public int getInt() {
-        int num;
-        do {
-            System.out.println("Please enter a number: ");
-            while (!scanner.hasNextInt()) {
-                System.out.println("That's not a number. Please enter a number: ");
-                scanner.next(); // Consume invalid input
-            }
-            num = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-        } while (num < 0);
-        return num;
+        int userInt = 0;
+        String s = getString();
+        try {
+            userInt = Integer.valueOf(s);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid integer. Please re-enter: ");
+            userInt = getInt();
+        }
+        return userInt;
+    }
+
+    public int getInt(String prompt) {
+        System.out.println(prompt);
+        return getInt();
+    }
+
+    public int getInt(int min, int max) {
+        return getInt(min, max, "");
+    }
+
+    public int getInt(int min, int max, String prompt) {
+        System.out.println(prompt);
+        int anInt = getInt();
+        if (anInt < min || anInt > max) {
+            System.out.printf( "Hey! That was not a number between %d and %d!!%n", min, max);
+            return getInt(min, max, prompt);
+        }
+        return anInt;
     }
 
 

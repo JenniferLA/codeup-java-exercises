@@ -11,6 +11,18 @@ public class Movie {
         this.category = category;
     }
 
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                '}';
+    }
+
+    public String toPrettyString() {
+        return String.format("%s == %s", name, category);
+    }
+
     // Create methods to access these properties and change them (getters and setters)
     public String getName() {
         return name;
